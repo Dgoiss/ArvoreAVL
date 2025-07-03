@@ -87,7 +87,7 @@ PONT Inserir(PONT raiz, TIPOCHAVE ch)
         {
             if(strcmp(ch,raiz->esq->chave) < 0) raiz = RotacaoDireita(raiz);
             
-            else EsquerdaDireita(raiz);
+            else raiz = EsquerdaDireita(raiz);
         }
     }
     
@@ -100,7 +100,7 @@ PONT Inserir(PONT raiz, TIPOCHAVE ch)
             {
                 if(strcmp(ch,raiz->dir->chave) > 0) raiz = RotacaoEsquerda(raiz);
                 
-                else DireitaEsquerda(raiz);
+                else raiz = DireitaEsquerda(raiz);
             }
         }
     }
