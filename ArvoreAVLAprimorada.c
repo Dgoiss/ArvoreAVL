@@ -40,6 +40,12 @@ int max(int a, int b){
     return (a>b) ? a : b;
 }
 
+PONT Minimo(PONT raiz) {
+    while (raiz->esq != NULL)
+        raiz = raiz->esq;
+    return raiz;
+}
+
 void ParaMinusculo(TIPOCHAVE nome)
 {
     for(int i=0; nome[i]; i++)
@@ -123,6 +129,51 @@ PONT Inserir(PONT raiz, TIPOCHAVE ch)
     raiz->h = max(altura(raiz->esq), altura(raiz->dir)) + 1;
     
     return (raiz);
+}
+
+PONT Remover(PONT raiz, TIPOCHAVE ch) {
+    if (raiz == NULL) return NULL;
+
+    ParaMinusculo(ch);  // Garante consistência na comparação
+
+    int comp = strcmp(ch, raiz->chave);
+
+    if (comp < 0) {
+        raiz->esq = Remover(raiz->esq, ch);
+    } else if (comp > 0) {
+        raiz->dir = Remover(raiz->dir, ch);
+    } else {
+        // Encontrou o nó
+        if (raiz->esq == NULL || raiz->dir == NULL) {
+            PONT temp = raiz->esq ? raiz->esq : raiz->dir;
+            free(raiz);
+            return temp;
+        } else {
+            PONT sucessor = Minimo(raiz->dir);
+            strcpy(raiz->chave, sucessor->chave);
+            raiz->dir = Remover(raiz->dir, sucessor->chave);
+        }
+    }
+
+    // Atualiza altura
+    raiz->h = max(altura(raiz->esq), altura(raiz->dir)) + 1;
+
+    // Verifica desbalanceamento
+    int fb = altura(raiz->esq) - altura(raiz->dir);
+
+    if (fb > 1) {
+        if (altura(raiz->esq->esq) >= altura(raiz->esq->dir))
+            raiz = RotacaoDireita(raiz);
+        else
+            raiz = EsquerdaDireita(raiz);
+    } else if (fb < -1) {
+        if (altura(raiz->dir->dir) >= altura(raiz->dir->esq))
+            raiz = RotacaoEsquerda(raiz);
+        else
+            raiz = DireitaEsquerda(raiz);
+    }
+
+    return raiz;
 }
 
 void desenhaArvoreBonita(PONT raiz, char *prefixo, int ehUltimo) {
@@ -223,6 +274,15 @@ int main()
         printf("Árvore após inserção:\n");
         desenhaArvoreBonita(t, "", 1);
     }
+    
+    TIPOCHAVE deletar;
+    strcpy(deletar, "morango");
+    r = Remover(r, deletar);
+    t = Remover(t, deletar);
+    
+    printf("\nÁrvores após remorção:\n");
+    desenhaArvoreBonita(r, "", 1);
+    desenhaArvoreBonita(t, "", 1);
     
     LiberarArvore(r);
     LiberarArvore(t);
