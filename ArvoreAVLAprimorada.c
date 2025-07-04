@@ -122,7 +122,7 @@ PONT Inserir(PONT raiz, TIPOCHAVE ch)
     
     else
     {
-        printf("Já existe um aquivo com o mesmo nome: %s", ch);
+        printf("Já existe um aquivo com o mesmo nome: %s\n", ch);
         return raiz;
     }
     
