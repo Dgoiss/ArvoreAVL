@@ -138,17 +138,25 @@ PONT Remover(PONT raiz, TIPOCHAVE ch) {
 
     int comp = strcmp(ch, raiz->chave);
 
-    if (comp < 0) {
+    if (comp < 0)
+    {
         raiz->esq = Remover(raiz->esq, ch);
-    } else if (comp > 0) {
+    }
+    else if (comp > 0)
+    {
         raiz->dir = Remover(raiz->dir, ch);
-    } else {
+    }
+    else
+    {
         // Encontrou o nó
         if (raiz->esq == NULL || raiz->dir == NULL) {
             PONT temp = raiz->esq ? raiz->esq : raiz->dir;
             free(raiz);
             return temp;
-        } else {
+        }
+            
+        else
+        {
             PONT sucessor = Minimo(raiz->dir);
             strcpy(raiz->chave, sucessor->chave);
             raiz->dir = Remover(raiz->dir, sucessor->chave);
@@ -161,16 +169,16 @@ PONT Remover(PONT raiz, TIPOCHAVE ch) {
     // Verifica desbalanceamento
     int fb = altura(raiz->esq) - altura(raiz->dir);
 
-    if (fb > 1) {
-        if (altura(raiz->esq->esq) >= altura(raiz->esq->dir))
-            raiz = RotacaoDireita(raiz);
-        else
-            raiz = EsquerdaDireita(raiz);
-    } else if (fb < -1) {
-        if (altura(raiz->dir->dir) >= altura(raiz->dir->esq))
-            raiz = RotacaoEsquerda(raiz);
-        else
-            raiz = DireitaEsquerda(raiz);
+    if (fb > 1)
+    {
+        if (altura(raiz->esq->esq) >= altura(raiz->esq->dir)) raiz = RotacaoDireita(raiz);
+        else raiz = EsquerdaDireita(raiz);
+    }
+        
+    else if (fb < -1)
+    {
+        if (altura(raiz->dir->dir) >= altura(raiz->dir->esq)) raiz = RotacaoEsquerda(raiz);
+        else raiz = DireitaEsquerda(raiz);
     }
 
     return raiz;
@@ -267,7 +275,8 @@ int main()
     
     int total = sizeof(nomes) / sizeof(nomes[0]);
 
-    for (int i = 0; i < total; i++) {
+    for (int i = 0; i < total; i++)
+    {
         strcpy(temp, nomes[i]);
         printf("\nInserindo: %s\n", temp);
         t = Inserir(t, temp);
