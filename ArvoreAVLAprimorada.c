@@ -40,9 +40,9 @@ int max(int a, int b){
     return (a>b) ? a : b;
 }
 
-PONT Minimo(PONT raiz) {
-    while (raiz->esq != NULL)
-        raiz = raiz->esq;
+PONT Minimo(PONT raiz)
+{
+    while (raiz->esq != NULL) raiz = raiz->esq;
     return raiz;
 }
 
@@ -149,12 +149,15 @@ PONT Remover(PONT raiz, TIPOCHAVE ch) {
     else
     {
         // Encontrou o nó
-        if (raiz->esq == NULL || raiz->dir == NULL) {
+        //Caso o tenha 0 ou 1 filho:
+        if (raiz->esq == NULL || raiz->dir == NULL)
+        {
             PONT temp = raiz->esq ? raiz->esq : raiz->dir;
             free(raiz);
             return temp;
         }
-            
+        
+        //Caso haja dois:
         else
         {
             PONT sucessor = Minimo(raiz->dir);
@@ -184,7 +187,20 @@ PONT Remover(PONT raiz, TIPOCHAVE ch) {
     return raiz;
 }
 
-void desenhaArvoreBonita(PONT raiz, char *prefixo, int ehUltimo) {
+PONT Buscar(PONT raiz, TIPOCHAVE nome)
+{
+    ParaMinusculo(nome);
+    
+    if(raiz==NULL) return NULL;
+    
+    int comp = strcmp(nome, raiz->chave);
+    
+    if(comp == 0) return raiz;
+    else if(comp < 0) return Buscar(raiz->esq, nome);
+    else return Buscar(raiz->dir, nome);
+}
+
+void desenhaArvore(PONT raiz, char *prefixo, int ehUltimo) {
     if (raiz == NULL) return;
 
     printf("%s", prefixo);
@@ -199,23 +215,19 @@ void desenhaArvoreBonita(PONT raiz, char *prefixo, int ehUltimo) {
     int temDir = (raiz->dir != NULL);
 
     if (temDir)
-        desenhaArvoreBonita(raiz->dir, novoPrefixo, !temEsq && !temDir);
+        desenhaArvore(raiz->dir, novoPrefixo, !temEsq && !temDir);
 
     if (temEsq)
-        desenhaArvoreBonita(raiz->esq, novoPrefixo, 1);
+        desenhaArvore(raiz->esq, novoPrefixo, 1);
 }
 
-PONT Buscar(PONT raiz, TIPOCHAVE nome)
+void ExibirEmOrdem(PONT raiz)
 {
-    ParaMinusculo(nome);
+    if(!raiz) return;
     
-    if(raiz==NULL) return NULL;
-    
-    int comp = strcmp(nome, raiz->chave);
-    
-    if(comp == 0) return raiz;
-    else if(comp < 0) return Buscar(raiz->esq, nome);
-    else return Buscar(raiz->dir, nome);
+    ExibirEmOrdem(raiz->esq);
+    printf("%s ", raiz->chave);
+    ExibirEmOrdem(raiz->dir);
 }
 
 void LiberarArvore(PONT raiz)
@@ -229,69 +241,83 @@ void LiberarArvore(PONT raiz)
 int main()
 {
     PONT r = Inicializa();
-    
-    TIPOCHAVE temp;
-
-    strcpy(temp, "feijao");
-    r = Inserir(r, temp);
-    strcpy(temp, "Arroz");
-    r = Inserir(r, temp);
-    strcpy(temp, "Arroz");
-    r = Inserir(r, temp);
-    strcpy(temp, "morango");
-    r = Inserir(r, temp);
-    strcpy(temp, "banana");
-    r = Inserir(r, temp);
-    strcpy(temp, "Melancia");
-    r = Inserir(r, temp);
-    strcpy(temp, "abacate");
-    r = Inserir(r, temp);
-    strcpy(temp, "laranja");
-    r = Inserir(r, temp);
-    strcpy(temp, "Uva");
-    r = Inserir(r, temp);
-    
-    printf("\nÁrvore AVL (bonita):\n");
-    desenhaArvoreBonita(r, "", 1);
-    
-    strcpy(temp, "laranja");
-    PONT resultado = Buscar(r, temp);
-    if(resultado) printf("\nBusca: %s\n", resultado->chave);
-    else printf("Nao encontrado!\n");
-    
     PONT t = Inicializa();
     
-    char nomes[][256] = {
-        "feijao",
-        "Arroz",
-        "Arroz",
-        "morango",
-        "banana",
-        "Melancia",
-        "abacate",
-        "laranja",
-        "Uva"
-    };
+    TIPOCHAVE temp;
+    TIPOCHAVE deletar;
+
+    //Povoando arvore r:
+    printf("Arvore r:\n");
+    strcpy(temp, "Arroz.html");
+    r = Inserir(r, temp);
+    strcpy(temp, "feijao.css");
+    r = Inserir(r, temp);
+    strcpy(temp, "Arroz.html");
+    r = Inserir(r, temp);
+    strcpy(temp, "morango.bat");
+    r = Inserir(r, temp);
+    strcpy(temp, "banana.js");
+    r = Inserir(r, temp);
+    strcpy(temp, "Melancia.py");
+    r = Inserir(r, temp);
+    strcpy(temp, "abacate.c");
+    r = Inserir(r, temp);
+    strcpy(temp, "laranja.exe");
+    r = Inserir(r, temp);
+    strcpy(temp, "Uva.txt");
+    r = Inserir(r, temp);
+    
+    printf("\nÁrvore AVL:\n");
+    desenhaArvore(r, "", 1);
+    
+    printf("\nExibição em ordem alfabética:\nr: ");
+    ExibirEmOrdem(r);
+    
+    strcpy(temp, "laranja.exe");
+    PONT resultado = Buscar(r, temp);
+    if(resultado) printf("\n\nBusca: %s\n", resultado->chave);
+    else printf("\nNão encontrado!\n");
+    
+    strcpy(deletar, "morango.bat");
+    r = Remover(r, deletar);
+    
+    printf("\nÁrvore após remoção de %s :\n", deletar);
+    desenhaArvore(r, "", 1);
+    
+    printf("\nExibição em ordem alfabética:\nr: ");
+    ExibirEmOrdem(r);
+    
+    printf("\n\n##################################################\n");
+    
+    //Povoando arvore t:
+    printf("\nArvore t:\n");
+    char nomes[][256] = {"Arroz.html","feijao.css","Arroz.html","morango.bat","banana.js","Melancia.py","abacate.c","laranja.exe","Uva.txt"};
     
     int total = sizeof(nomes) / sizeof(nomes[0]);
-
     for (int i = 0; i < total; i++)
     {
         strcpy(temp, nomes[i]);
         printf("\nInserindo: %s\n", temp);
         t = Inserir(t, temp);
-        printf("Árvore após inserção:\n");
-        desenhaArvoreBonita(t, "", 1);
+        desenhaArvore(t, "", 1);
     }
     
-    TIPOCHAVE deletar;
-    strcpy(deletar, "morango");
-    r = Remover(r, deletar);
+    printf("\nExibição em ordem alfabética:\nt: ");
+    ExibirEmOrdem(t);
+    
+    strcpy(temp, "uva.txt");
+    resultado = Buscar(r, temp);
+    if(resultado) printf("\n\nBusca: %s\n", resultado->chave);
+    else printf("\nNão encontrado!\n");
+    
+    strcpy(deletar, "morango.bat");
     t = Remover(t, deletar);
     
-    printf("\nÁrvores após remorção:\n");
-    desenhaArvoreBonita(r, "", 1);
-    desenhaArvoreBonita(t, "", 1);
+    printf("\nÁrvore após remoção de %s :\n", deletar);
+    desenhaArvore(t, "", 1);
+    
+    printf("\nExibição em ordem alfabética:\nt: ");
+    ExibirEmOrdem(t);
     
     LiberarArvore(r);
     LiberarArvore(t);
