@@ -122,7 +122,7 @@ PONT Inserir(PONT raiz, TIPOCHAVE ch)
     
     else
     {
-        printf("Já existe um aquivo com o mesmo nome: %s\n", ch);
+        printf("Ja existe um aquivo com o mesmo nome: %s\n", ch);
         return raiz;
     }
     
@@ -266,24 +266,24 @@ int main()
     strcpy(temp, "laranja.exe");
     r = Inserir(r, temp);
     
-    printf("\nÁrvore AVL:\n");
+    printf("\nArvore AVL:\n");
     desenhaArvore(r, "", 1);
     
-    printf("\nExibição em ordem alfabética:\nr: ");
+    printf("\nExibicao em ordem alfabetica:\nr: ");
     ExibirEmOrdem(r);
     
     strcpy(temp, "laranja.exe");
     PONT resultado = Buscar(r, temp);
     if(resultado) printf("\n\nBusca: %s\n", resultado->chave);
-    else printf("\nNão encontrado!\n");
+    else printf("\nNao encontrado!\n");
     
     strcpy(deletar, "morango.bat");
     r = Remover(r, deletar);
     
-    printf("\nÁrvore após remoção de %s :\n", deletar);
+    printf("\nArvore apos remocao de %s :\n", deletar);
     desenhaArvore(r, "", 1);
     
-    printf("\nExibição em ordem alfabética:\nr: ");
+    printf("\nExibicao em ordem alfabetica:\nr: ");
     ExibirEmOrdem(r);
     
     printf("\n\n##################################################\n");
@@ -311,21 +311,21 @@ int main()
         desenhaArvore(t, "", 1);
     }
     
-    printf("\nExibição em ordem alfabética:\nt: ");
+    printf("\nExibicao em ordem alfabetica:\nt: ");
     ExibirEmOrdem(t);
     
     strcpy(temp, "uva.txt");
     resultado = Buscar(r, temp);
     if(resultado) printf("\n\nBusca: %s\n", resultado->chave);
-    else printf("\nNão encontrado!\n");
+    else printf("\nNao encontrado!\n");
     
     strcpy(deletar, "morango.bat");
     t = Remover(t, deletar);
     
-    printf("\nÁrvore após remoção de %s :\n", deletar);
+    printf("\nArvore apos remocao de %s :\n", deletar);
     desenhaArvore(t, "", 1);
     
-    printf("\nExibição em ordem alfabética:\nt: ");
+    printf("\nExibicao em ordem alfabetica:\nt: ");
     ExibirEmOrdem(t);
     
     LiberarArvore(r);
