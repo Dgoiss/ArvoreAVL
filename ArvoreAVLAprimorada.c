@@ -247,24 +247,23 @@ int main()
     TIPOCHAVE deletar;
 
     //Povoando arvore r:
-    printf("Arvore r:\n");
-    strcpy(temp, "Arroz.html");
-    r = Inserir(r, temp);
-    strcpy(temp, "feijao.css");
-    r = Inserir(r, temp);
-    strcpy(temp, "Arroz.html");
+    strcpy(temp, "Feijao.css");
     r = Inserir(r, temp);
     strcpy(temp, "morango.bat");
     r = Inserir(r, temp);
-    strcpy(temp, "banana.js");
+    strcpy(temp, "uva.txt");
     r = Inserir(r, temp);
-    strcpy(temp, "Melancia.py");
+    strcpy(temp, "banana.js");
     r = Inserir(r, temp);
     strcpy(temp, "abacate.c");
     r = Inserir(r, temp);
-    strcpy(temp, "laranja.exe");
+    strcpy(temp, "Melancia.py");
     r = Inserir(r, temp);
-    strcpy(temp, "Uva.txt");
+    strcpy(temp, "Arroz.html");
+    r = Inserir(r, temp);
+    strcpy(temp, "Feijao.css");
+    r = Inserir(r, temp);
+    strcpy(temp, "laranja.exe");
     r = Inserir(r, temp);
     
     printf("\nÁrvore AVL:\n");
@@ -291,7 +290,17 @@ int main()
     
     //Povoando arvore t:
     printf("\nArvore t:\n");
-    char nomes[][256] = {"Arroz.html","feijao.css","Arroz.html","morango.bat","banana.js","Melancia.py","abacate.c","laranja.exe","Uva.txt"};
+    char nomes[][256] = {
+        "Feijao.css",
+        "morango.bat",
+        "uva.txt",
+        "banana.js",
+        "abacate.c",
+        "Melancia.py",
+        "Arroz.html",
+        "feijao.css",
+        "laranja.exe"
+    };
     
     int total = sizeof(nomes) / sizeof(nomes[0]);
     for (int i = 0; i < total; i++)
