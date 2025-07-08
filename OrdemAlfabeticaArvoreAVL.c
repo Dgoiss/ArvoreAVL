@@ -257,9 +257,9 @@ int main()
     r = Inserir(r, temp);
     strcpy(temp, "abacate.c");
     r = Inserir(r, temp);
-    strcpy(temp, "Melancia.py");
-    r = Inserir(r, temp);
     strcpy(temp, "Arroz.html");
+    r = Inserir(r, temp);
+    strcpy(temp, "Melancia.py");
     r = Inserir(r, temp);
     strcpy(temp, "Feijao.css");
     r = Inserir(r, temp);
@@ -286,7 +286,7 @@ int main()
     printf("\nExibicao em ordem alfabetica:\nr: ");
     ExibirEmOrdem(r);
     
-    printf("\n\n##################################################\n");
+    printf("\n\n--------------------------------------------------\n");
     
     //Povoando arvore t:
     printf("\nArvore t:\n");
@@ -296,8 +296,8 @@ int main()
         "uva.txt",
         "banana.js",
         "abacate.c",
-        "Melancia.py",
         "Arroz.html",
+        "Melancia.py",
         "feijao.css",
         "laranja.exe"
     };
