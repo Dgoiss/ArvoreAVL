@@ -253,20 +253,24 @@ int main()
     r = Inserir(r, temp);
     strcpy(temp, "uva.txt");
     r = Inserir(r, temp);
-    strcpy(temp, "banana.js");
+    strcpy(temp, "banana.c");
     r = Inserir(r, temp);
-    strcpy(temp, "abacate.c");
+    strcpy(temp, "abacate.js");
     r = Inserir(r, temp);
     strcpy(temp, "Arroz.html");
     r = Inserir(r, temp);
     strcpy(temp, "Melancia.py");
     r = Inserir(r, temp);
+    strcpy(temp, "Abobora.png");
+    r = Inserir(r, temp);
     strcpy(temp, "Feijao.css");
     r = Inserir(r, temp);
     strcpy(temp, "laranja.exe");
     r = Inserir(r, temp);
+    strcpy(temp, "amora.pdf");
+    r = Inserir(r, temp);
     
-    printf("\nArvore AVL:\n");
+    printf("\nArvore AVL r:\n");
     desenhaArvore(r, "", 1);
     
     printf("\nExibicao em ordem alfabetica:\nr: ");
@@ -289,17 +293,20 @@ int main()
     printf("\n\n--------------------------------------------------\n");
     
     //Povoando arvore t:
-    printf("\nArvore t:\n");
+    printf("\nArvore AVL t:\n");
+    
     char nomes[][256] = {
         "Feijao.css",
         "morango.bat",
         "uva.txt",
-        "banana.js",
-        "abacate.c",
+        "banana.c",
+        "abacate.js",
         "Arroz.html",
         "Melancia.py",
-        "feijao.css",
-        "laranja.exe"
+        "Abobora.png",
+        "Feijao.css",
+        "laranja.exe",
+        "amora.pdf"
     };
     
     int total = sizeof(nomes) / sizeof(nomes[0]);
