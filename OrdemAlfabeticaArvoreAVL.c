@@ -6,11 +6,11 @@
 
 typedef char TIPOCHAVE[256];
 
-typedef struct noAVL
+typedef struct aux
 {
     TIPOCHAVE chave;
-    struct noAVL* esq;
-    struct noAVL* dir;
+    struct aux* esq;
+    struct aux* dir;
     int h;
 }NO, *PONT;
 
@@ -198,33 +198,25 @@ PONT Buscar(PONT raiz, TIPOCHAVE nome)
     else return Buscar(raiz->dir, nome);
 }
 
-void desenhaArvore(PONT raiz, const char *prefixo, int ehUltimo)
-{
-    if(raiz == NULL) return;
+void desenhaArvore(PONT raiz, char *prefixo, int ehUltimo) {
+    if (raiz == NULL) return;
 
     printf("%s", prefixo);
     printf("%s", ehUltimo ? "-- " : "|-- ");
     printf("%s\n", raiz->chave);
 
-    size_t tamanho = strlen(prefixo) + 5;
-    char *novoPrefixo = malloc(tamanho);
-    if(!novoPrefixo) return;
+    char novoPrefixo[100];
+    strcpy(novoPrefixo, prefixo);
+    strcat(novoPrefixo, ehUltimo ? "   " : "|  ");
 
-    snprintf(novoPrefixo, tamanho, "%s%s", prefixo, ehUltimo ? "   " : "|  ");
+    int temEsq = (raiz->esq != NULL);
+    int temDir = (raiz->dir != NULL);
 
-    PONT filhos[2] = {raiz->dir, raiz->esq};
-    int total = (raiz->dir != NULL) + (raiz->esq != NULL);
-    int count = 0;
+    if (temDir)
+        desenhaArvore(raiz->dir, novoPrefixo, !temEsq && !temDir);
 
-    for(int i = 0; i < 2; i++)
-    {
-        if(filhos[i])
-        {
-            desenhaArvore(filhos[i], novoPrefixo, ++count == total);
-        }
-    }
-
-    free(novoPrefixo);
+    if (temEsq)
+        desenhaArvore(raiz->esq, novoPrefixo, 1);
 }
 
 void ExibirEmOrdem(PONT raiz)
