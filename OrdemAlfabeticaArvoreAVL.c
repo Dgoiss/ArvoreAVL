@@ -205,7 +205,7 @@ void desenhaArvore(PONT raiz, char *prefixo, int ehUltimo) {
     printf("%s", ehUltimo ? "-- " : "|-- ");
     printf("%s\n", raiz->chave);
 
-    char novoPrefixo[100];
+    char novoPrefixo[1000];
     strcpy(novoPrefixo, prefixo);
     strcat(novoPrefixo, ehUltimo ? "   " : "|  ");
 
